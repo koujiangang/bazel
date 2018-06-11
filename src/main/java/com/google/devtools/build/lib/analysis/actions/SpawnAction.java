@@ -387,7 +387,7 @@ public class SpawnAction extends AbstractAction implements ExecutionInfoSpecifie
     for (Artifact runfilesManifest : runfilesManifests) {
       fp.addPath(runfilesManifest.getExecPath());
     }
-    fp.addStringMap(env.getFixedEnv());
+    fp.addEnvStringMap(env.getFixedEnv());
     fp.addStrings(getClientEnvironmentVariables());
     fp.addStringMap(getExecutionInfo());
   }
