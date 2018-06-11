@@ -233,6 +233,19 @@ public final class Fingerprint implements Consumer<String> {
     return this;
   }
 
+  /**  Updates the digest with the supplied map. */
+  public Fingerprint addEnvStringMap(Map<String, String> inputs) {
+    addInt(inputs.size());
+    for (Map.Entry<String, String> entry : inputs.entrySet()) {
+      if (!entry.getKey().equals("TMP") && !entry.getKey().equals("TEMP")) {
+        addString(entry.getKey());
+        addString(entry.getValue());
+      }
+    }
+
+    return this;
+  }
+
   /**
    * Add the supplied sequence of {@link PathFragment}s to the digest as an atomic unit, that is
    * this is different from adding each item individually.
