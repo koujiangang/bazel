@@ -16,6 +16,7 @@ package com.google.devtools.build.lib.remote.util;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import build.bazel.remote.execution.v2.Action;
+import build.bazel.remote.execution.v2.Command;
 import build.bazel.remote.execution.v2.Digest;
 import build.bazel.remote.execution.v2.DigestFunction;
 import com.google.common.base.Preconditions;
@@ -95,6 +96,17 @@ public class DigestUtil {
    * between different platforms and languages. TODO(olaola): upgrade to a better implementation!
    */
   public Digest compute(Message message) {
+    if (message instanceof Command) {
+      // Rewrite the message a little bit.
+      Command.Builder commandBuilder = ((Command)message).toBuilder();
+      for (int index = 0; index < commandBuilder.getEnvironmentVariablesCount(); ++index) {
+        Command.EnvironmentVariable envVar = commandBuilder.getEnvironmentVariables(index);
+        if (envVar.getName().equals("TMP") || envVar.getName().equals("TEMP")) {
+          commandBuilder.setEnvironmentVariables(index, envVar.toBuilder().setValue("/WILL/NOT/EVEN/BOTHER/TO/DELETE"));
+        }
+      }
+      message = commandBuilder.build();
+    }
     return compute(message.toByteArray());
   }
 

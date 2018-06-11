@@ -99,7 +99,7 @@ public final class SymlinkTreeAction extends AbstractAction {
     fp.addString(GUID);
     fp.addBoolean(filesetTree);
     fp.addBoolean(enableRunfiles);
-    fp.addStringMap(env.getFixedEnv());
+    fp.addEnvStringMap(env.getFixedEnv());
     fp.addStrings(env.getInheritedEnv());
   }
 
