@@ -308,9 +308,11 @@ public class DigestUtils {
     byte[] result = new byte[Md5Digest.MD5_SIZE];
     Fingerprint fp = new Fingerprint();
     for (Map.Entry<String, String> entry : env.entrySet()) {
-      fp.addString(entry.getKey());
-      fp.addString(entry.getValue());
-      xorWith(result, fp.digestAndReset());
+      if (!entry.getKey().equals("TMP") && !entry.getKey().equals("TEMP")) {
+        fp.addString(entry.getKey());
+        fp.addString(entry.getValue());
+        xorWith(result, fp.digestAndReset());
+      }
     }
     return new Md5Digest(result);
   }
