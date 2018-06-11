@@ -316,7 +316,7 @@ public class TestRunnerAction extends AbstractAction
         executionSettings.getTestFilter() == null ? "" : executionSettings.getTestFilter());
     RunUnder runUnder = executionSettings.getRunUnder();
     fp.addString(runUnder == null ? "" : runUnder.getValue());
-    fp.addStringMap(extraTestEnv);
+    fp.addEnvStringMap(extraTestEnv);
     // TODO(ulfjack): It might be better for performance to hash the action and test envs in config,
     // and only add a hash here.
     configuration.getActionEnvironment().addTo(fp);
