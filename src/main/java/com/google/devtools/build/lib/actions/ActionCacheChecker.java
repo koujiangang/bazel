@@ -213,7 +213,7 @@ public class ActionCacheChecker {
     Map<String, String> used = new HashMap<>();
     for (String var : action.getClientEnvironmentVariables()) {
       String value = clientEnv.get(var);
-      if (value != null) {
+      if (value != null && !var.equals("TMP") && !var.equals("TEMP")) {
         used.put(var, value);
       }
     }
