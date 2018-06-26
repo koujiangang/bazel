@@ -1115,9 +1115,9 @@ public class CppCompileAction extends AbstractAction
   @Override
   public void computeKey(ActionKeyContext actionKeyContext, Fingerprint fp) {
     fp.addUUID(actionClassId);
-    fp.addStringMap(env.getFixedEnv());
+    fp.addEnvStringMap(env.getFixedEnv());
     fp.addStrings(env.getInheritedEnv());
-    fp.addStringMap(compileCommandLine.getEnvironment());
+    fp.addEnvStringMap(compileCommandLine.getEnvironment());
     fp.addStringMap(executionInfo);
 
     // For the argv part of the cache key, ignore all compiler flags that explicitly denote module
